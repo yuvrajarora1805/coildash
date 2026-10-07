@@ -1,0 +1,121 @@
+# Detailed Implementation Plan: Coiling Process Control & Monitoring System
+
+This document outlines the comprehensive, step-by-step plan to build the Coiling Process Control System. It is structured around the **three-layer architecture** (Shop Floor -> Quality Control -> Management) and details the role-wise workflows, dashboard features, and phased implementation.
+
+---
+
+## 1. System Architecture & The 3 Layers
+
+The application is structured into three operational layers to ensure smooth data flow from creation to management review.
+
+### Layer 1: Shop Floor (Data Entry & Execution)
+*   **Primary User:** Operator
+*   **Focus:** Ease of use, quick data entry, immediate feedback, touch-friendly UI.
+*   **Key Modules:** Process Card Creation, Setup Entry, Material Traceability, First-Off/Last-Off Entry, Production Observations, Reporting Abnormalities.
+
+### Layer 2: Quality Control (Verification & Oversight)
+*   **Primary User:** Supervisor / Quality Inspector
+*   **Focus:** Verification of parameters, quality limit enforcement, abnormality review, and process card approval.
+*   **Key Modules:** Setup Verification, Quality Limit Checks, Retroactive Verification, Abnormality Corrective Actions.
+
+### Layer 3: Management (Analytics & Final Approval)
+*   **Primary User:** Section Head / Admin
+*   **Focus:** High-level metrics, historical trends, final approvals, and PDF report generation.
+*   **Key Modules:** Analytics Dashboards (Production, Quality, Rejection), Reports Export, System Settings, Final Process Card Closure.
+
+---
+
+## 2. Role-Wise Workflow: The Journey of a Process Card
+
+The system enforces a strict hierarchical workflow to ensure data integrity.
+
+### Step 1: Operator (Initiation & Execution)
+1.  **Create:** Initiates a new Process Card for a specific Machine and Part.
+2.  **Setup:** Enters initial setup parameters and material traceability details.
+3.  **Inspect:** Conducts and logs the First-Off inspection.
+4.  **Produce:** Logs Start, Middle, and End observations during the run.
+5.  **Conclude:** Logs Last-Off inspection and details any rejections or abnormalities.
+6.  **Submit:** Submits the card for Supervisor review.
+
+### Step 2: Supervisor (Review & Verification)
+1.  **Notification:** Receives an alert that a Process Card is awaiting review.
+2.  **Verify Setup:** Compares Operator's setup parameters against the Approved Setup database.
+3.  **Review Quality:** Checks First-Off and Last-Off results against quality limits (Press, Temp, Voltage).
+4.  **Handle Abnormalities:** Reviews reported abnormalities, ensures corrective actions are logged, and performs retroactive verifications.
+5.  **Approve/Reject:** Approves the Process Card to move it up the chain, or sends it back to the Operator for corrections.
+
+### Step 3: Section Head (Final Approval & Analytics)
+1.  **Final Review:** Reviews the verified Process Card.
+2.  **Closure:** Signs off digitally to close the Process Card.
+3.  **Analyze:** Uses the dashboard to review the impact of the completed run on overall KPIs (Rejection Rates, OEE, Quality Trends).
+
+---
+
+## 4. Phase-by-Phase Implementation Plan
+
+### Phase 1: Foundation & Shop Floor Digitization
+**Objective:** Replace the paper form for basic data entry.
+*   **Database & Auth:** Set up PostgreSQL, user roles, and JWT authentication.
+*   **Master Data:** Build screens to manage Machines, Parts, Customers, and Users.
+*   **Process Card Wizard (Operator UI):**
+    *   Step 1: Basic Info (Auto-generate PC number).
+    *   Step 2: Setup Change entry.
+    *   Step 3: Material & Part Traceability.
+    *   Step 4: Production Observations (Start/Middle/End tracking).
+*   **Dashboard (Basic):** List of Active and Completed Process Cards.
+
+### Phase 2: Quality Control & Verification
+**Objective:** Introduce Supervisor oversight and automated quality checks.
+*   **Approved Setup Database:** Store baseline parameters for each part.
+*   **Verification UI:** Auto-compare Operator setup vs. Approved Setup (Pass/Fail).
+*   **Inspections:** Build First-Off and Last-Off data entry grids.
+*   **Quality Limits Engine:** Hardcode or configure limits (e.g., Temp < 60°C). System auto-flags out-of-bounds entries.
+*   **Supervisor Workflow:** Build the approval queue and digital signature component.
+
+### Phase 3: Rejection & Abnormality Management
+**Objective:** Track issues, waste, and machine downtime.
+*   **Abnormality Module:** Form to report issues (Equipment, Breakage, etc.), assign severity, and log corrective actions.
+*   **Retroactive Verification:** Dedicated table for supervisors to verify parameters post-abnormality.
+*   **Rejection Tracking:** Data entry for rejected coils, categorized by reason (Wire Bend, Power Cut, NC, etc.).
+*   **Calculations:** Auto-calculate Rejection Rate (%) and Accepted Quantity.
+
+### Phase 4: Management Dashboards & Analytics
+**Objective:** Provide Section Heads with high-level insights.
+*   **KPI Cards:** Total Production, Rejection Rate, Open Abnormalities, Machine Status.
+*   **Visual Charts:**
+    *   Parameter Trends (OD/ID drift from Start to End).
+    *   Rejection by Reason (Bar charts).
+    *   First-Off vs. Last-Off deviation tables.
+*   **Machine Monitoring Panel:** Real-time color-coded status of all shop floor machines (Running, Breakdown, Idle).
+
+### Phase 5: Reporting, PDF Generation, & Polish
+**Objective:** Ensure compliance with existing audit requirements.
+*   **PDF Engine:** Implement server-side generation (e.g., Puppeteer) to create a PDF that looks *exactly* like the original 2-page physical Process Card.
+*   **Audit Trail:** Log every critical action (who changed what, when, old value vs. new value).
+*   **Notifications:** In-app alerts for pending approvals and critical out-of-bounds metrics.
+*   **Mobile/Tablet Optimization:** Ensure operator screens have large touch targets.
+
+---
+
+## 5. Detailed Dashboard Content per Role
+
+### Operator Dashboard (Tablet Optimized)
+*   **Primary Call to Action:** Large `[ + NEW PROCESS CARD ]` button.
+*   **Current Task:** "Active Run: Machine S-02 | Part P-1024".
+*   **Quick Actions:** `[ LOG FIRST-OFF ]`, `[ MIDDLE CHECK ]`, `[ REPORT ISSUE ]`.
+*   **Alerts:** "Warning: OD/ID trending near upper limit."
+
+### Supervisor Dashboard
+*   **Action Queue:** List of Process Cards awaiting verification.
+*   **Live Machine Grid:** Overview of all machines with current status and active operator.
+*   **Quality Alerts:** Notifications for failed First-Offs or reported abnormalities requiring corrective action.
+*   **Recent Approvals:** Log of recently signed-off cards.
+
+### Section Head / Admin Dashboard
+*   **Top-Level KPIs:**
+    *   Total Production (Shift/Day)
+    *   Overall Rejection Rate (%)
+    *   Machines Running (e.g., 8/10)
+*   **Trend Graphs:** Production volume over the week, Rejection pareto charts.
+*   **Approvals:** Final sign-off queue for completed batches.
+*   **Export Center:** Download Daily Production Reports, Quality Reports, and PDF Process Cards.

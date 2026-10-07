@@ -1,0 +1,82 @@
+# Hardware Integration Plan: NodeMCU + IR Sensors to Next.js Dashboard
+
+This document outlines the step-by-step plan to integrate a NodeMCU with two IR sensors to count items and update the live dashboard securely.
+
+## 1. Hardware Setup & Logic (NodeMCU)
+
+### Components Needed:
+- NodeMCU (ESP8266 or ESP32)
+- 2 x IR Proximity Sensors
+- Jumper Wires
+
+### Pin Connections:
+- **IR Sensor 1 (Entry):** OUT pin to NodeMCU D1 (GPIO 5)
+- **IR Sensor 2 (Exit):** OUT pin to NodeMCU D2 (GPIO 4)
+- **VCC/GND:** Connect to NodeMCU 3.3V and GND.
+
+### The IR Logic (State Machine)
+To handle the counting and fault detection accurately, we will use a state machine in the Arduino code. 
+
+**States:**
+- `IDLE`: No object detected.
+- `WAITING_FOR_IR2`: Object passed IR1, waiting for it to pass IR2.
+
+**Logic Rules:**
+1. **Normal Count:** 
+   - State is `IDLE`.
+   - IR1 triggers (goes LOW). State changes to `WAITING_FOR_IR2`.
+   - IR2 triggers (goes LOW). Count increases by 1. State goes back to `IDLE`.
+   - NodeMCU sends HTTP POST request to dashboard API with the new count.
+2. **Sensor 2 Faulty Error:** 
+   - State is `WAITING_FOR_IR2`.
+   - IR1 triggers *again* before IR2 triggers.
+   - This means an object passed IR1, but IR2 never detected it, and now a *new* object is passing IR1. 
+   - Action: Trigger "Sensor 2 Faulty" error and send alert to API.
+3. **Sensor 1 Faulty Error:**
+   - State is `IDLE`.
+   - IR2 triggers (goes LOW) without IR1 ever triggering.
+   - Action: Trigger "Sensor 1 Faulty" error (or reverse flow detected) and send alert to API.
+
+## 2. Secure API Endpoint (Next.js)
+
+We need to create an API route in your Next.js application that the NodeMCU will call.
+
+### Endpoint: `/api/sensor/update` (POST)
+
+**Authentication (Password/Token):**
+- We will set a secret token in your `.env` file (e.g., `SENSOR_API_SECRET=your_super_secret_password`).
+- The NodeMCU will include this token in the `Authorization` header or request body.
+- The API will reject any request that doesn't have the correct token (401 Unauthorized).
+
+**Request Payload (JSON):**
+```json
+{
+  "machine_id": "S-01",
+  "count": 1,
+  "status": "ok", 
+  "error_msg": null
+}
+```
+*(If there is an error, `status` becomes "error" and `error_msg` contains the fault description).*
+
+### Database Updates:
+- Create a new table or update the `machines` / `process_cards` table to store `live_count` and `sensor_status`.
+- The API will execute an SQL `UPDATE` query to increment the count in the database.
+
+## 3. Real-Time Dashboard Updates
+
+To show this live on the dashboard without forcing the user to refresh the page:
+
+1. **Client-Side Polling:**
+   - We will use a library like `SWR` or `React Query` in the dashboard component.
+   - The dashboard will fetch the latest count from the database every 2-3 seconds.
+   - *Alternative (More advanced):* Use WebSockets or Server-Sent Events (SSE) to push updates from the server to the browser instantly when the API receives a ping from the NodeMCU.
+
+## Next Steps to Execute
+
+If you approve of this plan, we can start implementing it in the following order:
+1. **Database:** Add the necessary columns (`live_count`, `sensor_status`) to the database schema.
+2. **Next.js Backend:** Write the `/api/sensor/update` POST route with password protection.
+3. **Dashboard Frontend:** Update the UI to fetch and display the live count and any sensor error alerts.
+4. **NodeMCU Code:** I will provide the complete C++ (Arduino) code for the NodeMCU to handle the IR logic, connect to WiFi, and make the POST requests.
+c

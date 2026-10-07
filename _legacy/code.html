@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>COILING PROCESS CONTROL &amp; MONITORING SYSTEM - Coventry Coil-o-Matic</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-surface": "#233144",
+            "inverse-primary": "#a3c9ff",
+            "tertiary-fixed": "#ffdcc3",
+            "error": "#ba1a1a",
+            "on-surface": "#0d1c2e",
+            "primary": "#005396",
+            "surface-container": "#e6eeff",
+            "on-primary-container": "#e3ecff",
+            "on-secondary-fixed": "#00201d",
+            "on-secondary-fixed-variant": "#00504a",
+            "on-error": "#ffffff",
+            "background": "#f8f9ff",
+            "on-primary-fixed-variant": "#004883",
+            "on-tertiary-fixed": "#2f1500",
+            "primary-container": "#0f6cbd",
+            "surface": "#f8f9ff",
+            "outline": "#717783",
+            "on-tertiary": "#ffffff",
+            "inverse-on-surface": "#eaf1ff",
+            "surface-container-low": "#eff4ff",
+            "on-secondary-container": "#006f67",
+            "surface-container-highest": "#d5e3fc",
+            "surface-tint": "#0060ab",
+            "secondary": "#006a63",
+            "on-primary": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "on-tertiary-container": "#ffe8d8",
+            "on-primary-fixed": "#001c39",
+            "error-container": "#ffdad6",
+            "tertiary-container": "#a25700",
+            "outline-variant": "#c1c7d3",
+            "secondary-fixed": "#9cf2e8",
+            "primary-fixed": "#d3e3ff",
+            "primary-fixed-dim": "#a3c9ff",
+            "tertiary": "#7f4300",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-fixed-variant": "#6e3900",
+            "surface-variant": "#d5e3fc",
+            "on-secondary": "#ffffff",
+            "surface-container-high": "#dce9ff",
+            "on-surface-variant": "#414751",
+            "on-background": "#0d1c2e",
+            "secondary-container": "#99efe5",
+            "secondary-fixed-dim": "#80d5cb",
+            "tertiary-fixed-dim": "#ffb77d",
+            "surface-dim": "#ccdbf3",
+            "on-error-container": "#93000a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xs": "0.25rem",
+            "space-lg": "1.25rem",
+            "space-xl": "1.75rem",
+            "gutter-compact": "0.5rem",
+            "space-sm": "0.5rem",
+            "gutter": "1rem",
+            "space-md": "0.75rem",
+            "margin": "1.5rem",
+            "margin-mobile": "0.75rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Space Grotesk"],
+            "label-numeric-sm": ["JetBrains Mono"],
+            "label-caps": ["IBM Plex Sans"],
+            "body-sm": ["IBM Plex Sans"],
+            "label-numeric-md": ["JetBrains Mono"],
+            "display-lg": ["Space Grotesk"],
+            "body-lg": ["IBM Plex Sans"],
+            "headline-sm": ["Space Grotesk"],
+            "headline-md": ["Space Grotesk"],
+            "label-numeric-lg": ["JetBrains Mono"],
+            "display-lg-mobile": ["Space Grotesk"],
+            "body-md": ["IBM Plex Sans"]
+          },
+          "fontSize": {
+            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "label-numeric-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "label-caps": ["11px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "label-numeric-md": ["14px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-lg": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+            "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-numeric-lg": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "display-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+      vertical-align: middle;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #c1c7d3;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased font-body-md min-h-screen flex flex-col selection:bg-primary selection:text-white">
+<!-- Top Navigation Bar (Shared Component Anchor) -->
+<header class="bg-surface-container-lowest border-b border-outline-variant w-full h-14 flex justify-between items-center px-space-lg sticky top-0 z-50 shadow-none">
+<!-- Left: Brand Title & Line Search -->
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary text-white flex items-center justify-center font-headline-sm font-bold text-headline-sm">
+          CC
+        </div>
+<div>
+<span class="text-headline-sm font-headline-sm text-primary uppercase tracking-tight block leading-tight">
+            Coventry Coil-o-Matic (Haryana) Ltd.
+          </span>
+<span class="text-label-caps font-label-caps text-on-surface-variant block uppercase tracking-wider text-[10px]">
+            COILING PROCESS CONTROL &amp; MONITORING SYSTEM | LINE-04 (HEAVY COILING)
+          </span>
+</div>
+</div>
+<!-- Navigation Links from JSON -->
+<nav class="hidden md:flex items-center gap-space-lg ml-space-md border-l border-outline-variant pl-space-md">
+<a class="text-primary border-b-2 border-primary pb-1 text-label-caps font-label-caps transition-colors duration-150 ease-in-out" href="#line-telemetry">
+          Line Telemetry
+        </a>
+<a class="text-on-surface-variant hover:text-on-surface text-label-caps font-label-caps transition-colors duration-150 ease-in-out" href="#audit-log">
+          Audit Log
+        </a>
+<a class="text-on-surface-variant hover:text-on-surface text-label-caps font-label-caps transition-colors duration-150 ease-in-out" href="#shift-handover">
+          Shift Handover
+        </a>
+</nav>
+</div>
+<!-- Right Controls: Plant State, Badges, User, Primary Action -->
+<div class="flex items-center gap-space-md">
+<!-- Live Shift Pill -->
+<div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 bg-surface-container rounded border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-caps text-label-caps text-on-surface">Shift A - Active</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface-variant">(06:00 - 14:00)</span>
+</div>
+<!-- Compliance Badge -->
+<div class="hidden xl:flex items-center gap-1 px-2 py-0.5 bg-surface-container-high rounded border border-outline-variant text-on-surface text-label-caps font-label-caps">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+<span>Audit Verified</span>
+<span class="text-outline text-[10px]">IATF 16949</span>
+</div>
+<!-- Live Clock -->
+<div class="hidden sm:flex flex-col text-right">
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface font-semibold" id="live-time">10:42:18 IST</span>
+<span class="text-[10px] font-label-caps text-on-surface-variant">24-OCT-2026</span>
+</div>
+<!-- Icon Actions -->
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="p-1.5 rounded hover:bg-surface-container transition-colors relative" title="Notifications">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full ring-2 ring-white"></span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container transition-colors" title="Schedule">
+<span class="material-symbols-outlined">schedule</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container transition-colors" title="Help / SOP Guidelines">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<!-- User Profile Pill -->
+<div class="flex items-center gap-2 pl-2 border-l border-outline-variant">
+<div class="w-7 h-7 rounded bg-surface-container-high text-primary font-bold flex items-center justify-center text-xs">
+          RK
+        </div>
+<div class="hidden md:block text-left leading-none">
+<span class="block text-xs font-semibold text-on-surface">Raj Kumar</span>
+<span class="text-[10px] text-on-surface-variant font-label-caps">Shift Supervisor</span>
+</div>
+</div>
+<!-- Primary Action CTA -->
+<button class="bg-primary hover:bg-[#004883] text-white text-xs font-semibold px-3 py-1.5 rounded flex items-center gap-1.5 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+<span>Generate Process Card PDF</span>
+</button>
+</div>
+</header>
+<div class="flex-1 flex overflow-hidden">
+<!-- SideNavBar (Shared Component Anchor) -->
+<aside class="w-64 bg-surface-container-low border-r border-outline-variant flex flex-col justify-between py-space-sm px-space-xs flex-shrink-0 select-none">
+<div class="flex flex-col gap-1">
+<!-- Sidebar Brand Sub-Header -->
+<div class="px-space-sm py-space-xs mb-2 border-b border-outline-variant">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Coiling Control</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-numeric-sm bg-primary text-white">v2.4</span>
+</div>
+<span class="text-[11px] text-on-surface-variant font-body-sm block">Station Monitoring &amp; MES</span>
+</div>
+<!-- 10 Primary Navigation Tabs from JSON -->
+<div class="flex flex-col gap-0.5">
+<!-- 1. Dashboard (Active) -->
+<a class="bg-surface-container-high text-primary border-l-4 border-primary font-bold px-3 py-2 flex items-center gap-2.5 rounded-r transition-all duration-150 ease-in-out text-body-md" href="#">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+<span class="ml-auto text-[10px] font-label-numeric-sm bg-primary-container text-white px-1.5 py-0.2 rounded">LIVE</span>
+</a>
+<!-- 2. Process Cards -->
+<a class="text-on-surface-variant hover:bg-surface-container hover:text-on-surface px-3 py-2 flex items-center gap-2.5 rounded-r transition-all duration-150 ease-in-out text-body-md" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-caps text-label-caps">Process Cards</span>
+<span class="ml-auto text-[10px] font-label-numeric-sm bg-surface-container text-on-surface px-1.5 py-0.2 rounded font-semibold">12 Act</span>
+</a>
+<!-- 3. Machines S-01..04 -->
+<a class="text-on-surface-variant hover:bg-surface-container hover:text-on-surface px-3 py-2 flex items-center gap-2.5 rounded-r transition-all duration-150 ease-in-out text-body-md" href="#">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+<span class="font-label-caps text-label-caps">Machines S-01..04</span>
+<span class="ml-auto w-2 h-2 rounded-full bg-secondary"></span>
+</a>
+<!-- 4. Production Telemetry -->
+<a class="text-on-surface-variant hover:bg-surface-container hover:text-on-surface px-3 py-2 flex items-center gap-2.5 rounded-r transition-all duration-150 ease-in-out text-body-md" href="#">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+<span class="font-label-caps text-label-caps">Production Telemetry</span>
+</a>
+<!-- 5. Quality & Calibration -->
+<a class="text-on-surface-variant hover:bg-surface-container hover:text-on-surface px-3 py-2 flex items-center gap-2.5 rounded-r transition-all duration-150 ease-in-out text-body-md" href="#">
+<span class="material-symbols-outlined">tune</span>
+<span class="font-label-caps text-label-caps">Quality &amp; Calibration</span>
+</a>
+<!-- 6. Abnormalities -->
+<a class="text-on-surface-variant hover:bg-surface-container hover:text-on-surface px-3 py-2 flex items-center gap-2.5 rounded-r transition-all duration-150 ease-in-out text-body-md" href="#">
+<span class="material-symbols-outlined text-error">warning</span>
+<span class="font-label-caps text-label-caps text-on-surface">Abnormalities</span>
+<span class="ml-auto text-[10px] font-label-numeric-sm bg-error-container text-on-error-container font-bold px-1.5 py-0.2 rounded">7 Open</span>
+</a>
+<!-- 7. Rejection Tracking -->
+<a class="text-on-surface-variant hover:bg-surface-container hover:text-on-surface px-3 py-2 flex items-center gap-2.5 rounded-r transition-all duration-150 ease-in-out text-body-md" href="#">
+<span class="material-symbols-outlined">remove_shopping_cart</span>
+<span class="font-label-caps text-label-caps">Rejection Tracking</span>
+<span class="ml-auto text-[10px] font-label-numeric-sm text-on-surface-variant">3.37%</span>
+</a>
+<!-- 8. Analytics & SPC -->
+<a class="text-on-surface-variant hover:bg-surface-container hover:text-on-surface px-3 py-2 flex items-center gap-2.5 rounded-r transition-all duration-150 ease-in-out text-body-md" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-caps text-label-caps">Analytics &amp; SPC</span>
+</a>
+<!-- 9. Reports Log -->
+<a class="text-on-surface-variant hover:bg-surface-container hover:text-on-surface px-3 py-2 flex items-center gap-2.5 rounded-r transition-all duration-150 ease-in-out text-body-md" href="#">
+<span class="material-symbols-outlined">summarize</span>
+<span class="font-label-caps text-label-caps">Reports Log</span>
+</a>
+<!-- 10. Master Data -->
+<a class="text-on-surface-variant hover:bg-surface-container hover:text-on-surface px-3 py-2 flex items-center gap-2.5 rounded-r transition-all duration-150 ease-in-out text-body-md" href="#">
+<span class="material-symbols-outlined">database</span>
+<span class="font-label-caps text-label-caps">Master Data</span>
+</a>
+</div>
+</div>
+<!-- SideNav Footer Actions & CTA -->
+<div class="flex flex-col gap-2 pt-2 border-t border-outline-variant">
+<button class="w-full bg-error hover:bg-[#a01616] text-white font-label-caps text-label-caps py-2 px-3 rounded flex items-center justify-center gap-2 ring-2 ring-error-container transition-all">
+<span class="material-symbols-outlined text-[16px]">e911_emergency</span>
+<span>Emergency Stop Log</span>
+</button>
+<div class="flex flex-col gap-0.5">
+<a class="text-on-surface-variant hover:bg-surface-container hover:text-on-surface px-3 py-1.5 flex items-center gap-2 rounded text-body-sm" href="#">
+<span class="material-symbols-outlined text-[16px]">build</span>
+<span class="font-label-caps text-label-caps">Machine Diagnostics</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container hover:text-on-surface px-3 py-1.5 flex items-center gap-2 rounded text-body-sm" href="#">
+<span class="material-symbols-outlined text-[16px]">settings</span>
+<span class="font-label-caps text-label-caps">System Setup</span>
+</a>
+</div>
+<div class="px-2 pt-1 text-[10px] text-outline font-label-numeric-sm flex justify-between">
+<span>PLC SYNC: OK</span>
+<span>LATENCY: 14ms</span>
+</div>
+</div>
+</aside>
+<!-- Main Operational Workspace -->
+<main class="flex-1 overflow-y-auto custom-scroll p-space-lg bg-background flex flex-col gap-space-lg">
+<!-- Top Operational KPI Summary Banner (8 High-Contrast Industrial Metric Cards) -->
+<section class="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-8 gap-space-sm">
+<!-- KPI 1: Active Cards -->
+<div class="bg-surface-container-lowest p-space-sm rounded border border-outline-variant border-l-4 border-l-primary flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Active Cards</span>
+<div class="my-1">
+<span class="font-label-numeric-lg text-label-numeric-lg font-bold text-on-surface">12</span>
+</div>
+<span class="text-[10px] font-label-numeric-sm text-primary font-medium">4 First-Off | 8 Run</span>
+</div>
+<!-- KPI 2: Completed Today -->
+<div class="bg-surface-container-lowest p-space-sm rounded border border-outline-variant border-l-4 border-l-secondary flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Completed Today</span>
+<div class="my-1">
+<span class="font-label-numeric-lg text-label-numeric-lg font-bold text-on-surface">38</span>
+</div>
+<span class="text-[10px] font-label-numeric-sm text-secondary font-medium">Target: 45 cards</span>
+</div>
+<!-- KPI 3: Total Coils Produced -->
+<div class="bg-surface-container-lowest p-space-sm rounded border border-outline-variant flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Total Produced</span>
+<div class="my-1">
+<span class="font-label-numeric-lg text-label-numeric-lg font-bold text-on-surface">5,420</span>
+</div>
+<span class="text-[10px] font-label-numeric-sm text-on-surface-variant">Shift Volume</span>
+</div>
+<!-- KPI 4: Accepted Quantity -->
+<div class="bg-surface-container-lowest p-space-sm rounded border border-outline-variant border-l-4 border-l-secondary flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Accepted Qty</span>
+<div class="my-1">
+<span class="font-label-numeric-lg text-label-numeric-lg font-bold text-secondary">5,237</span>
+</div>
+<span class="text-[10px] font-label-numeric-sm text-secondary">96.63% Yield</span>
+</div>
+<!-- KPI 5: Rejected Quantity -->
+<div class="bg-surface-container-lowest p-space-sm rounded border border-outline-variant border-l-4 border-l-error flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Rejected Qty</span>
+<div class="my-1">
+<span class="font-label-numeric-lg text-label-numeric-lg font-bold text-error">183</span>
+</div>
+<span class="text-[10px] font-label-numeric-sm text-error">Coils Scrapped</span>
+</div>
+<!-- KPI 6: Rejection Rate -->
+<div class="bg-surface-container-lowest p-space-sm rounded border border-outline-variant border-l-4 border-l-secondary flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Rejection Rate</span>
+<div class="my-1">
+<span class="font-label-numeric-lg text-label-numeric-lg font-bold text-on-surface">3.37%</span>
+</div>
+<span class="text-[10px] font-label-numeric-sm text-secondary">Target &lt; 4.0% [OK]</span>
+</div>
+<!-- KPI 7: Open Abnormalities -->
+<div class="bg-surface-container-lowest p-space-sm rounded border border-outline-variant border-l-4 border-l-tertiary flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Abnormalities</span>
+<div class="my-1">
+<span class="font-label-numeric-lg text-label-numeric-lg font-bold text-tertiary">7</span>
+</div>
+<span class="text-[10px] font-label-numeric-sm text-error">2 Crit | 5 Under Rev</span>
+</div>
+<!-- KPI 8: Machine Status -->
+<div class="bg-surface-container-lowest p-space-sm rounded border border-outline-variant flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Machine Fleet</span>
+<div class="my-1">
+<span class="font-label-numeric-lg text-label-numeric-lg font-bold text-on-surface">8 / 10</span>
+</div>
+<span class="text-[10px] font-label-numeric-sm text-secondary font-medium">80% Plant OEE</span>
+</div>
+</section>
+<!-- Zone 1: Real-Time Machine Floor Telemetry & Quality Limits (Compact Grid) -->
+<section class="grid grid-cols-1 xl:grid-cols-12 gap-space-md">
+<!-- Machines Status Matrix (S-01 to S-04) -->
+<div class="xl:col-span-8 bg-surface-container-lowest rounded border border-outline-variant p-space-md">
+<div class="flex items-center justify-between pb-space-sm border-b border-outline-variant mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">precision_manufacturing</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Shop-Floor Machines (S-01 to S-04 Telemetry)</h2>
+</div>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface-variant">Update Cycle: 500ms</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-sm">
+<!-- Machine S-01: Running -->
+<div class="bg-background rounded border border-outline-variant border-l-4 border-l-secondary p-space-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">S-01</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span> RUNNING
+                  </span>
+</div>
+<div class="text-[11px] font-body-sm text-on-surface-variant leading-tight">
+<p><span class="font-semibold text-on-surface">Part:</span> P-1024</p>
+<p><span class="font-semibold text-on-surface">Coil Lot:</span> #C-8821</p>
+<p><span class="font-semibold text-on-surface">Operator:</span> Yuvraj</p>
+</div>
+</div>
+<div class="mt-2 pt-2 border-t border-outline-variant flex justify-between text-[11px] font-label-numeric-sm">
+<span class="text-on-surface-variant">Speed: 42 cpm</span>
+<span class="text-secondary font-semibold">Eff: 94%</span>
+</div>
+</div>
+<!-- Machine S-02: Running / Warning (Active Card Source) -->
+<div class="bg-surface-container rounded border-2 border-primary border-l-4 border-l-primary p-space-sm flex flex-col justify-between relative shadow-sm">
+<div class="absolute -top-2 right-2 bg-primary text-white text-[9px] font-label-caps px-1.5 rounded uppercase">
+                Card Focus
+              </div>
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">S-02</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-[#FFFBEB] text-[#B45309] border border-[#FDE68A] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> TOL. WATCH
+                  </span>
+</div>
+<div class="text-[11px] font-body-sm text-on-surface-variant leading-tight">
+<p><span class="font-semibold text-on-surface">Part:</span> P-2055</p>
+<p><span class="font-semibold text-on-surface">Coil Lot:</span> #C-8825</p>
+<p><span class="font-semibold text-on-surface">Operator:</span> Amit</p>
+</div>
+</div>
+<div class="mt-2 pt-2 border-t border-outline-variant flex justify-between text-[11px] font-label-numeric-sm">
+<span class="text-on-surface-variant">Speed: 38 cpm</span>
+<span class="text-tertiary font-semibold">OD Drift +0.02</span>
+</div>
+</div>
+<!-- Machine S-03: Idle -->
+<div class="bg-background rounded border border-outline-variant border-l-4 border-l-outline p-space-sm flex flex-col justify-between opacity-85">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">S-03</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-surface-container-high text-on-surface-variant border border-outline-variant">
+                    IDLE
+                  </span>
+</div>
+<div class="text-[11px] font-body-sm text-on-surface-variant leading-tight">
+<p><span class="font-semibold text-on-surface">Reason:</span> Tooling Change</p>
+<p><span class="font-semibold text-on-surface">Mandrel:</span> 14.5mm Setup</p>
+<p><span class="font-semibold text-on-surface">Technician:</span> Harish</p>
+</div>
+</div>
+<div class="mt-2 pt-2 border-t border-outline-variant flex justify-between text-[11px] font-label-numeric-sm">
+<span class="text-on-surface-variant">Downtime:</span>
+<span class="font-semibold text-on-surface">24 min</span>
+</div>
+</div>
+<!-- Machine S-04: Breakdown -->
+<div class="bg-[#FFF1F2] rounded border border-error-container border-l-4 border-l-error p-space-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-headline-sm text-headline-sm text-error font-bold">S-04</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-error-container text-on-error-container border border-error flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span> STOPPAGE
+                  </span>
+</div>
+<div class="text-[11px] font-body-sm text-on-surface-variant leading-tight">
+<p><span class="font-semibold text-error">Issue:</span> Cutter Jam</p>
+<p><span class="font-semibold text-on-surface">Alert Tag:</span> #AB-109</p>
+<p><span class="font-semibold text-on-surface">Maint:</span> Assigned (K.P.)</p>
+</div>
+</div>
+<div class="mt-2 pt-2 border-t border-error-container flex justify-between text-[11px] font-label-numeric-sm">
+<span class="text-error font-semibold">Down: 48m</span>
+<span class="text-error font-bold underline cursor-pointer">View CAPA</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mandatory Printed Quality Limits Card (Direct Physical Card Requirement) -->
+<div class="xl:col-span-4 bg-surface-container-lowest rounded border border-outline-variant p-space-md flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-sm border-b border-outline-variant mb-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary">speed</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Mandatory Quality Limits</h2>
+</div>
+<span class="px-2 py-0.5 bg-surface-container text-primary font-label-caps text-[10px] rounded">
+                SOP-COIL-009
+              </span>
+</div>
+<!-- Sensor Limits Table -->
+<div class="space-y-2">
+<!-- PRESS -->
+<div class="p-2 rounded bg-surface-container-low border border-outline-variant flex items-center justify-between">
+<div>
+<div class="text-label-caps font-label-caps text-on-surface-variant text-[10px]">COILING FEED PRESS</div>
+<div class="font-label-numeric-sm text-label-numeric-sm font-semibold text-on-surface">Spec: 120 - 160 kg</div>
+</div>
+<div class="text-right">
+<span class="font-label-numeric-md text-label-numeric-md font-bold text-secondary">142 kg</span>
+<span class="ml-2 px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]">PASS</span>
+</div>
+</div>
+<!-- TEMPERATURE -->
+<div class="p-2 rounded bg-surface-container-low border border-outline-variant flex items-center justify-between">
+<div>
+<div class="text-label-caps font-label-caps text-on-surface-variant text-[10px]">TOOLING HEAD TEMP</div>
+<div class="font-label-numeric-sm text-label-numeric-sm font-semibold text-on-surface">Spec: Below 60°C</div>
+</div>
+<div class="text-right">
+<span class="font-label-numeric-md text-label-numeric-md font-bold text-secondary">54.2°C</span>
+<span class="ml-2 px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]">PASS</span>
+</div>
+</div>
+<!-- VOLTAGE -->
+<div class="p-2 rounded bg-surface-container-low border border-outline-variant flex items-center justify-between">
+<div>
+<div class="text-label-caps font-label-caps text-on-surface-variant text-[10px]">LINE 3-PHASE VOLTAGE</div>
+<div class="font-label-numeric-sm text-label-numeric-sm font-semibold text-on-surface">Spec: 350 - 440 V</div>
+</div>
+<div class="text-right">
+<span class="font-label-numeric-md text-label-numeric-md font-bold text-secondary">412 V</span>
+<span class="ml-2 px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]">PASS</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-2 pt-2 border-t border-outline-variant flex items-center justify-between text-[11px] text-on-surface-variant">
+<span>Calibrated: 01-OCT-2026</span>
+<span class="text-secondary font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Sensors Normal
+            </span>
+</div>
+</div>
+</section>
+<!-- Zone 2: Digital Process Card Active Inspection Workstation (Card PC-2026-00124) -->
+<section class="bg-surface-container-lowest rounded border border-outline-variant shadow-sm flex flex-col">
+<!-- Digital Process Card Top Bar -->
+<div class="p-space-md border-b border-outline-variant bg-surface-container-low flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md flex-wrap">
+<div class="flex items-center gap-2">
+<span class="p-1.5 bg-primary text-white rounded">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+</span>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Card PC-2026-00124</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-label-caps bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0] font-bold">
+                    RUNNING
+                  </span>
+</div>
+<span class="text-[11px] text-on-surface-variant font-body-sm">
+                  Automotive Valve Spring | Batch Rev. 04 | Coventry Form QC-702
+                </span>
+</div>
+</div>
+<!-- Header Parameters Grid -->
+<div class="flex items-center gap-space-md text-[12px] font-body-sm border-l border-outline-variant pl-space-md flex-wrap">
+<div><span class="text-on-surface-variant font-label-caps text-[10px] block">MACHINE:</span> <span class="font-bold text-on-surface">S-02 (Wafios G66)</span></div>
+<div><span class="text-on-surface-variant font-label-caps text-[10px] block">PART NO:</span> <span class="font-semibold text-on-surface">P-1024</span></div>
+<div><span class="text-on-surface-variant font-label-caps text-[10px] block">CUSTOMER:</span> <span class="font-semibold text-on-surface">ABC Motors Ltd.</span></div>
+<div><span class="text-on-surface-variant font-label-caps text-[10px] block">OPERATOR:</span> <span class="font-semibold text-on-surface">Yuvraj Singh (#841)</span></div>
+<div><span class="text-on-surface-variant font-label-caps text-[10px] block">SUPERVISOR:</span> <span class="font-semibold text-on-surface">Raj Kumar</span></div>
+</div>
+</div>
+<!-- Quick Actions on Active Card -->
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1.5 text-xs font-semibold rounded border border-outline text-on-surface hover:bg-surface-container transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">history</span>
+              Audit Trail
+            </button>
+<button class="px-3 py-1.5 text-xs font-semibold rounded bg-primary text-white hover:bg-[#004883] transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">save</span>
+              Save Observation
+            </button>
+</div>
+</div>
+<!-- 8-Step Process Card Pipeline Stepper -->
+<div class="bg-surface-container-lowest px-space-md py-space-sm border-b border-outline-variant overflow-x-auto custom-scroll">
+<div class="flex items-center min-w-[850px] justify-between">
+<!-- Step 1 -->
+<div class="flex items-center gap-1.5 text-secondary">
+<div class="w-5 h-5 rounded-full bg-[#ECFDF5] border border-secondary flex items-center justify-center text-[10px] font-bold">✓</div>
+<span class="font-label-caps text-label-caps">1. Basic Info &amp; Setup</span>
+</div>
+<div class="w-6 h-0.5 bg-secondary"></div>
+<!-- Step 2 -->
+<div class="flex items-center gap-1.5 text-secondary">
+<div class="w-5 h-5 rounded-full bg-[#ECFDF5] border border-secondary flex items-center justify-center text-[10px] font-bold">✓</div>
+<span class="font-label-caps text-label-caps">2. Material Traceability</span>
+</div>
+<div class="w-6 h-0.5 bg-secondary"></div>
+<!-- Step 3 -->
+<div class="flex items-center gap-1.5 text-secondary">
+<div class="w-5 h-5 rounded-full bg-[#ECFDF5] border border-secondary flex items-center justify-center text-[10px] font-bold">✓</div>
+<span class="font-label-caps text-label-caps">3. Setup Verification</span>
+</div>
+<div class="w-6 h-0.5 bg-secondary"></div>
+<!-- Step 4 -->
+<div class="flex items-center gap-1.5 text-secondary">
+<div class="w-5 h-5 rounded-full bg-[#ECFDF5] border border-secondary flex items-center justify-center text-[10px] font-bold">✓</div>
+<span class="font-label-caps text-label-caps">4. First-Off Inspection</span>
+</div>
+<div class="w-6 h-0.5 bg-primary"></div>
+<!-- Step 5 (ACTIVE) -->
+<div class="flex items-center gap-1.5 text-primary">
+<div class="w-5 h-5 rounded-full bg-primary text-white flex items-center justify-center text-[10px] font-bold ring-2 ring-primary-fixed">5</div>
+<span class="font-label-caps text-label-caps font-bold">5. S/M/E Observations</span>
+</div>
+<div class="w-6 h-0.5 bg-outline-variant"></div>
+<!-- Step 6 -->
+<div class="flex items-center gap-1.5 text-outline">
+<div class="w-5 h-5 rounded-full bg-surface-container border border-outline-variant flex items-center justify-center text-[10px]">6</div>
+<span class="font-label-caps text-label-caps">6. Last-Off</span>
+</div>
+<div class="w-6 h-0.5 bg-outline-variant"></div>
+<!-- Step 7 -->
+<div class="flex items-center gap-1.5 text-tertiary">
+<div class="w-5 h-5 rounded-full bg-tertiary-fixed border border-tertiary flex items-center justify-center text-[10px] font-bold">1</div>
+<span class="font-label-caps text-label-caps">7. Abnormalities (1)</span>
+</div>
+<div class="w-6 h-0.5 bg-outline-variant"></div>
+<!-- Step 8 -->
+<div class="flex items-center gap-1.5 text-outline">
+<div class="w-5 h-5 rounded-full bg-surface-container border border-outline-variant flex items-center justify-center text-[10px]">8</div>
+<span class="font-label-caps text-label-caps">8. Rejection Sign-off</span>
+</div>
+</div>
+</div>
+<!-- Interactive Workstation Content Area -->
+<div class="p-space-md grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Left: Approved Setup vs Actual Comparison Matrix & First-Off 5 Samples -->
+<div class="lg:col-span-8 flex flex-col gap-space-md">
+<!-- Comparison Matrix -->
+<div class="border border-outline-variant rounded p-space-sm bg-surface-container-lowest">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-caps text-label-caps text-on-surface uppercase">Approved Setup vs. Actual Inspection Parameters</span>
+<span class="text-[10px] font-label-numeric-sm text-secondary bg-[#ECFDF5] px-1.5 py-0.5 rounded border border-[#A7F3D0]">
+                  ALL 5 PARAMETERS IN TOLERANCE
+                </span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-xs border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-caps text-[10px] border-b border-outline-variant">
+<th class="p-1.5">PARAMETER NAME</th>
+<th class="p-1.5">APPROVED SPEC</th>
+<th class="p-1.5">TOLERANCE</th>
+<th class="p-1.5">ACTUAL READING</th>
+<th class="p-1.5 text-center">DEV.</th>
+<th class="p-1.5 text-center">STATUS</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant font-body-sm text-[12px]">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-1.5 font-semibold text-on-surface">Helix Pitch (P)</td>
+<td class="p-1.5 font-label-numeric-sm">18.20 mm</td>
+<td class="p-1.5 font-label-numeric-sm text-on-surface-variant">±0.15 mm</td>
+<td class="p-1.5 font-label-numeric-sm font-bold text-on-surface">18.25 mm</td>
+<td class="p-1.5 font-label-numeric-sm text-center text-secondary">+0.05</td>
+<td class="p-1.5 text-center">
+<span class="px-1.5 py-0.5 text-[10px] font-label-caps bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0] rounded">PASS</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-1.5 font-semibold text-on-surface">Free Length (LO)</td>
+<td class="p-1.5 font-label-numeric-sm">64.50 mm</td>
+<td class="p-1.5 font-label-numeric-sm text-on-surface-variant">±0.25 mm</td>
+<td class="p-1.5 font-label-numeric-sm font-bold text-on-surface">64.60 mm</td>
+<td class="p-1.5 font-label-numeric-sm text-center text-secondary">+0.10</td>
+<td class="p-1.5 text-center">
+<span class="px-1.5 py-0.5 text-[10px] font-label-caps bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0] rounded">PASS</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-1.5 font-semibold text-on-surface">Outer Diameter (OD)</td>
+<td class="p-1.5 font-label-numeric-sm">24.80 mm</td>
+<td class="p-1.5 font-label-numeric-sm text-on-surface-variant">±0.10 mm</td>
+<td class="p-1.5 font-label-numeric-sm font-bold text-tertiary">24.82 mm</td>
+<td class="p-1.5 font-label-numeric-sm text-center text-tertiary">+0.02</td>
+<td class="p-1.5 text-center">
+<span class="px-1.5 py-0.5 text-[10px] font-label-caps bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0] rounded">PASS</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-1.5 font-semibold text-on-surface">Total Coils (NC)</td>
+<td class="p-1.5 font-label-numeric-sm">7.50 Coils</td>
+<td class="p-1.5 font-label-numeric-sm text-on-surface-variant">±0.10 Coils</td>
+<td class="p-1.5 font-label-numeric-sm font-bold text-on-surface">7.50 Coils</td>
+<td class="p-1.5 font-label-numeric-sm text-center text-secondary">0.00</td>
+<td class="p-1.5 text-center">
+<span class="px-1.5 py-0.5 text-[10px] font-label-caps bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0] rounded">PASS</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-1.5 font-semibold text-on-surface">End Condition</td>
+<td class="p-1.5 font-label-numeric-sm">Closed &amp; Ground</td>
+<td class="p-1.5 font-label-numeric-sm text-on-surface-variant">Visual SOP-12</td>
+<td class="p-1.5 font-label-numeric-sm font-bold text-on-surface">Closed &amp; Ground</td>
+<td class="p-1.5 font-label-numeric-sm text-center text-secondary">OK</td>
+<td class="p-1.5 text-center">
+<span class="px-1.5 py-0.5 text-[10px] font-label-caps bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0] rounded">PASS</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- First-Off 5-Sample Inspection Table (Shop Floor Log Format) -->
+<div class="border border-outline-variant rounded p-space-sm bg-surface-container-lowest">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-caps text-label-caps text-on-surface uppercase">
+                  First-Off Stage: 5-Sample Sequence Inspection Record
+                </span>
+<span class="text-[11px] text-on-surface-variant font-label-numeric-sm">Sample Interval: 1 Coil / 10 sec</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-xs border-collapse">
+<thead>
+<tr class="bg-[#F1F5F9] text-[#475569] font-label-caps text-[10px] border-b border-outline-variant">
+<th class="p-1.5">S.NO</th>
+<th class="p-1.5">F/L (LO)</th>
+<th class="p-1.5">OD / ID</th>
+<th class="p-1.5">TOTAL COILS</th>
+<th class="p-1.5">ENDS</th>
+<th class="p-1.5">HELIX</th>
+<th class="p-1.5">VISUAL</th>
+<th class="p-1.5">LOG TIME</th>
+<th class="p-1.5 text-center">DIGITAL SIGN</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant font-label-numeric-sm text-[11px]">
+<tr class="hover:bg-surface-container-low h-8">
+<td class="p-1.5 font-bold text-on-surface">#01</td>
+<td class="p-1.5">64.58 mm</td>
+<td class="p-1.5">24.81 mm</td>
+<td class="p-1.5">7.50</td>
+<td class="p-1.5 font-body-sm text-[11px]">Square</td>
+<td class="p-1.5">18.22 mm</td>
+<td class="p-1.5 text-secondary font-semibold">Clear</td>
+<td class="p-1.5 text-on-surface-variant">06:45:10</td>
+<td class="p-1.5 text-center text-[10px] text-primary font-bold">YS [OP-841]</td>
+</tr>
+<tr class="hover:bg-surface-container-low h-8 bg-[#F8FAFC]">
+<td class="p-1.5 font-bold text-on-surface">#02</td>
+<td class="p-1.5">64.60 mm</td>
+<td class="p-1.5">24.82 mm</td>
+<td class="p-1.5">7.50</td>
+<td class="p-1.5 font-body-sm text-[11px]">Square</td>
+<td class="p-1.5">18.24 mm</td>
+<td class="p-1.5 text-secondary font-semibold">Clear</td>
+<td class="p-1.5 text-on-surface-variant">06:45:22</td>
+<td class="p-1.5 text-center text-[10px] text-primary font-bold">YS [OP-841]</td>
+</tr>
+<tr class="hover:bg-surface-container-low h-8">
+<td class="p-1.5 font-bold text-on-surface">#03</td>
+<td class="p-1.5">64.62 mm</td>
+<td class="p-1.5">24.80 mm</td>
+<td class="p-1.5">7.50</td>
+<td class="p-1.5 font-body-sm text-[11px]">Square</td>
+<td class="p-1.5">18.25 mm</td>
+<td class="p-1.5 text-secondary font-semibold">Clear</td>
+<td class="p-1.5 text-on-surface-variant">06:45:35</td>
+<td class="p-1.5 text-center text-[10px] text-primary font-bold">YS [OP-841]</td>
+</tr>
+<tr class="hover:bg-surface-container-low h-8 bg-[#F8FAFC]">
+<td class="p-1.5 font-bold text-on-surface">#04</td>
+<td class="p-1.5">64.59 mm</td>
+<td class="p-1.5">24.83 mm</td>
+<td class="p-1.5">7.50</td>
+<td class="p-1.5 font-body-sm text-[11px]">Square</td>
+<td class="p-1.5">18.26 mm</td>
+<td class="p-1.5 text-secondary font-semibold">Clear</td>
+<td class="p-1.5 text-on-surface-variant">06:45:48</td>
+<td class="p-1.5 text-center text-[10px] text-primary font-bold">YS [OP-841]</td>
+</tr>
+<tr class="hover:bg-surface-container-low h-8">
+<td class="p-1.5 font-bold text-on-surface">#05</td>
+<td class="p-1.5">64.61 mm</td>
+<td class="p-1.5">24.82 mm</td>
+<td class="p-1.5">7.50</td>
+<td class="p-1.5 font-body-sm text-[11px]">Square</td>
+<td class="p-1.5">18.25 mm</td>
+<td class="p-1.5 text-secondary font-semibold">Clear</td>
+<td class="p-1.5 text-on-surface-variant">06:46:01</td>
+<td class="p-1.5 text-center text-[10px] text-primary font-bold">YS [OP-841]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right: Observation Trend (Start vs Mid vs End) & Run-Chart Sparkline -->
+<div class="lg:col-span-4 flex flex-col gap-space-md">
+<div class="border border-outline-variant rounded p-space-sm bg-surface-container-lowest flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-1 border-b border-outline-variant mb-2">
+<span class="font-label-caps text-label-caps text-on-surface">Observation Run-Trend</span>
+<span class="text-[10px] font-label-numeric-sm text-primary">Shift A Samples</span>
+</div>
+<!-- Trend Matrix Table -->
+<div class="space-y-1.5 text-xs">
+<div class="bg-surface-container-low p-2 rounded flex justify-between items-center">
+<div>
+<span class="text-[10px] font-label-caps text-on-surface-variant block">START OBSERVATION (07:00)</span>
+<span class="font-label-numeric-sm font-semibold">LO: 64.58 | OD: 24.81 | NC: 7.5</span>
+</div>
+<span class="px-1.5 py-0.5 text-[9px] font-label-caps bg-[#ECFDF5] text-[#047857] rounded border border-[#A7F3D0]">PASS</span>
+</div>
+<div class="bg-surface-container-high p-2 rounded flex justify-between items-center border border-primary">
+<div>
+<span class="text-[10px] font-label-caps text-primary block font-bold">MIDDLE OBSERVATION (10:30) - ACTIVE</span>
+<span class="font-label-numeric-sm font-bold text-on-surface">LO: 64.62 | OD: 24.83 | NC: 7.5</span>
+</div>
+<span class="px-1.5 py-0.5 text-[9px] font-label-caps bg-[#ECFDF5] text-[#047857] rounded border border-[#A7F3D0]">PASS</span>
+</div>
+<div class="bg-surface-container-low p-2 rounded flex justify-between items-center opacity-60">
+<div>
+<span class="text-[10px] font-label-caps text-on-surface-variant block">END OBSERVATION (DUE 13:30)</span>
+<span class="font-label-numeric-sm text-outline">Pending Shift Handover</span>
+</div>
+<span class="px-1.5 py-0.5 text-[9px] font-label-caps bg-surface-variant text-on-surface-variant rounded">QUEUED</span>
+</div>
+</div>
+<!-- Real-time Run-Chart Visual (Free Length LO & OD Trend) -->
+<div class="mt-3 pt-2 border-t border-outline-variant">
+<div class="flex justify-between items-center text-[10px] font-label-caps text-on-surface-variant mb-1">
+<span>Free Length (LO) Deviation Drift</span>
+<span class="font-label-numeric-sm text-secondary">USL: 64.75 | LSL: 64.25</span>
+</div>
+<!-- SVG Telemetry Line Chart -->
+<div class="w-full h-24 bg-surface-container-low rounded border border-outline-variant p-1 relative flex items-end">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 240 80">
+<!-- Grid lines -->
+<line stroke="#CBD5E1" stroke-dasharray="2,2" stroke-width="1" x1="0" x2="240" y1="15" y2="15"></line>
+<line opacity="0.4" stroke="#005396" stroke-width="1" x1="0" x2="240" y1="40" y2="40"></line>
+<line stroke="#CBD5E1" stroke-dasharray="2,2" stroke-width="1" x1="0" x2="240" y1="65" y2="65"></line>
+<!-- Telemetry Polyline -->
+<polyline fill="none" points="10,48 40,42 70,38 100,45 130,35 160,32 190,36 220,30" stroke="#0F6CBD" stroke-width="2"></polyline>
+<!-- Nodes -->
+<circle cx="10" cy="48" fill="#0F6CBD" r="2.5"></circle>
+<circle cx="40" cy="42" fill="#0F6CBD" r="2.5"></circle>
+<circle cx="70" cy="38" fill="#0F6CBD" r="2.5"></circle>
+<circle cx="100" cy="45" fill="#0F6CBD" r="2.5"></circle>
+<circle cx="130" cy="35" fill="#0F6CBD" r="2.5"></circle>
+<circle cx="160" cy="32" fill="#0F6CBD" r="2.5"></circle>
+<circle cx="190" cy="36" fill="#0F6CBD" r="2.5"></circle>
+<circle class="animate-pulse" cx="220" cy="30" fill="#047857" r="3.5"></circle>
+</svg>
+</div>
+<div class="flex justify-between text-[9px] font-label-numeric-sm text-on-surface-variant mt-1">
+<span>06:30</span>
+<span>08:30</span>
+<span>10:30 (Current)</span>
+</div>
+</div>
+</div>
+<!-- Real-time Shift Supervisor Quick Observation Note -->
+<div class="mt-2 pt-2 border-t border-outline-variant">
+<label class="text-[10px] font-label-caps text-on-surface-variant uppercase block mb-1">Station Operator Observation Input:</label>
+<div class="flex gap-1.5">
+<input class="w-full text-xs font-body-sm px-2 py-1 bg-white border border-outline-variant rounded focus:border-primary focus:ring-0" type="text" value="Free Length stable within ±0.12mm. Wire pitch verified."/>
+<button class="bg-surface-container-high hover:bg-surface-container text-primary font-bold text-xs px-2 py-1 rounded border border-outline-variant">
+                    Post
+                  </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Zone 3: Shop-Floor Anomaly & Rejection Triage Panel -->
+<section class="grid grid-cols-1 xl:grid-cols-12 gap-space-md">
+<!-- Rejection Breakdown Table by Original Form Categories (Coventry Process Card Coiling) -->
+<div class="xl:col-span-7 bg-surface-container-lowest rounded border border-outline-variant p-space-md">
+<div class="flex items-center justify-between pb-space-sm border-b border-outline-variant mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error">remove_shopping_cart</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Rejection Analysis &amp; Scrap Categorization</h2>
+</div>
+<span class="text-xs font-label-numeric-sm text-error font-semibold">Total Scrapped Today: 183 Coils</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-xs border-collapse">
+<thead>
+<tr class="bg-[#F1F5F9] text-[#475569] font-label-caps text-[10px] border-b border-outline-variant">
+<th class="p-1.5">COIL NO</th>
+<th class="p-1.5">PART NO</th>
+<th class="p-1.5 text-center">JOB SETTING</th>
+<th class="p-1.5 text-center">ID / OD</th>
+<th class="p-1.5 text-center">NC</th>
+<th class="p-1.5 text-center">WIRE BEND</th>
+<th class="p-1.5 text-center">POWER CUT</th>
+<th class="p-1.5 text-center">WIRE CUT</th>
+<th class="p-1.5 text-center font-bold">TOTAL</th>
+<th class="p-1.5">REMARKS</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant font-label-numeric-sm text-[11px]">
+<tr class="hover:bg-surface-container-low h-8">
+<td class="p-1.5 font-bold text-on-surface">#C-8821</td>
+<td class="p-1.5">P-1024</td>
+<td class="p-1.5 text-center">4</td>
+<td class="p-1.5 text-center text-error font-semibold">18</td>
+<td class="p-1.5 text-center">6</td>
+<td class="p-1.5 text-center">5</td>
+<td class="p-1.5 text-center">0</td>
+<td class="p-1.5 text-center">2</td>
+<td class="p-1.5 text-center font-bold text-error">35</td>
+<td class="p-1.5 font-body-sm text-[11px] text-on-surface-variant">Mandrel wear detected</td>
+</tr>
+<tr class="hover:bg-surface-container-low h-8 bg-[#F8FAFC]">
+<td class="p-1.5 font-bold text-on-surface">#C-8822</td>
+<td class="p-1.5">P-1024</td>
+<td class="p-1.5 text-center">2</td>
+<td class="p-1.5 text-center">12</td>
+<td class="p-1.5 text-center">8</td>
+<td class="p-1.5 text-center">4</td>
+<td class="p-1.5 text-center">0</td>
+<td class="p-1.5 text-center">3</td>
+<td class="p-1.5 text-center font-bold text-error">29</td>
+<td class="p-1.5 font-body-sm text-[11px] text-on-surface-variant">First-off trial coils</td>
+</tr>
+<tr class="hover:bg-surface-container-low h-8">
+<td class="p-1.5 font-bold text-on-surface">#C-8823</td>
+<td class="p-1.5">P-3010</td>
+<td class="p-1.5 text-center">1</td>
+<td class="p-1.5 text-center">6</td>
+<td class="p-1.5 text-center">3</td>
+<td class="p-1.5 text-center">2</td>
+<td class="p-1.5 text-center text-error font-semibold">5</td>
+<td class="p-1.5 text-center">4</td>
+<td class="p-1.5 text-center font-bold text-error">21</td>
+<td class="p-1.5 font-body-sm text-[11px] text-on-surface-variant">DG Sync delay trip</td>
+</tr>
+<tr class="hover:bg-surface-container-low h-8 bg-[#F8FAFC]">
+<td class="p-1.5 font-bold text-on-surface">#C-8824</td>
+<td class="p-1.5">P-2055</td>
+<td class="p-1.5 text-center">5</td>
+<td class="p-1.5 text-center text-error font-semibold">12</td>
+<td class="p-1.5 text-center">5</td>
+<td class="p-1.5 text-center">7</td>
+<td class="p-1.5 text-center">0</td>
+<td class="p-1.5 text-center">5</td>
+<td class="p-1.5 text-center font-bold text-error">34</td>
+<td class="p-1.5 font-body-sm text-[11px] text-on-surface-variant">Wire coil tensile knot</td>
+</tr>
+<!-- Totals Summary Row -->
+<tr class="bg-surface-container font-bold text-on-surface border-t-2 border-outline-variant">
+<td class="p-1.5" colspan="2">CURRENT TOTALS:</td>
+<td class="p-1.5 text-center">12</td>
+<td class="p-1.5 text-center text-error">48</td>
+<td class="p-1.5 text-center">22</td>
+<td class="p-1.5 text-center">18</td>
+<td class="p-1.5 text-center">5</td>
+<td class="p-1.5 text-center">14</td>
+<td class="p-1.5 text-center text-error text-xs">119</td>
+<td class="p-1.5 text-[10px] text-primary">Shift Cumulative</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Active Abnormality & Digital Signature / Verification Box -->
+<div class="xl:col-span-5 flex flex-col gap-space-md">
+<!-- Abnormality Triage Alert -->
+<div class="bg-[#FFFBEB] border border-[#FDE68A] rounded p-space-sm">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[#B45309] text-[20px] mt-0.5">warning</span>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-[14px] text-[#B45309] font-bold">Active Abnormality: AB-109 (Machine S-04)</span>
+<span class="text-[9px] font-label-caps bg-error text-white px-1.5 py-0.2 rounded font-bold">CRITICAL</span>
+</div>
+<p class="text-xs font-body-sm text-[#78350F] mt-1">
+                  Cutter Blade jammed on 4.5mm oil-tempered wire. Hydraulic safety pressure cut activated. Tool maintenance team (K.P.) en-route.
+                </p>
+<div class="mt-2 flex items-center gap-2">
+<button class="bg-[#B45309] hover:bg-[#78350F] text-white text-[11px] font-semibold px-2 py-1 rounded">
+                    Open CAPA Ticket
+                  </button>
+<button class="bg-white border border-[#FDE68A] text-[#78350F] text-[11px] font-semibold px-2 py-1 rounded">
+                    Bypass Interlock (Eng Auth)
+                  </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Digital Supervisor Verification & Sign-off Box -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-space-sm flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-1 border-b border-outline-variant mb-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary">verified_user</span>
+<span class="font-label-caps text-label-caps text-on-surface">Supervisor Sign-Off &amp; PIN Authentication</span>
+</div>
+<span class="font-label-numeric-sm text-[10px] text-secondary font-bold">PIN SECURED</span>
+</div>
+<div class="space-y-2">
+<div class="p-2 bg-surface-container-low rounded border border-outline-variant">
+<div class="flex items-center justify-between text-xs">
+<span class="font-semibold text-on-surface">Authorized Signatory:</span>
+<span class="font-label-numeric-sm text-primary font-bold">Raj Kumar [SUP-0021]</span>
+</div>
+<div class="flex items-center justify-between text-xs mt-1">
+<span class="text-on-surface-variant">IATF 16949 Sign Token:</span>
+<span class="font-label-numeric-sm text-[10px] text-on-surface">SHA-256: 4F9B...88C1</span>
+</div>
+<div class="flex items-center justify-between text-xs mt-1">
+<span class="text-on-surface-variant">Last First-Off Verification:</span>
+<span class="font-label-numeric-sm text-secondary font-semibold">06:50:14 IST [APPROVED]</span>
+</div>
+</div>
+<!-- Fast Verification Actions -->
+<div class="grid grid-cols-2 gap-2 pt-1">
+<button class="w-full bg-secondary hover:bg-[#00504a] text-white text-xs font-semibold py-1.5 rounded flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                    Verify Observations
+                  </button>
+<button class="w-full bg-surface-container-high hover:bg-surface-container text-on-surface text-xs font-semibold py-1.5 rounded border border-outline-variant flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+                    Add Shift Remark
+                  </button>
+</div>
+</div>
+</div>
+<!-- Shop-Floor Footer Status Bar -->
+<div class="pt-2 border-t border-outline-variant flex items-center justify-between text-[10px] text-outline font-label-numeric-sm">
+<span>Coventry Plant 2, Gurgaon, Haryana</span>
+<span>MES Gateway: Online</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Inline Micro-Script for Live Clock and UI Interaction -->
+<script>
+    // Live Clock Update
+    function updateClock() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('en-IN', { hour12: false }) + " IST";
+      const timeEl = document.getElementById('live-time');
+      if (timeEl) {
+        timeEl.innerText = timeStr;
+      }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body></html>
