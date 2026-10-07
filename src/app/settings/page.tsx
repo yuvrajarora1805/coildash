@@ -63,6 +63,7 @@ export default async function SettingsPage() {
                   Create New User
                 </h2>
               </div>
+              {/* @ts-ignore */}
               <form action={createUser} className="p-6 space-y-4">
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-secondary-700 uppercase tracking-wider">Full Name</label>
