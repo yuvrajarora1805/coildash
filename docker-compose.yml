@@ -10,10 +10,10 @@ services:
     ports:
       - "3004:3000"
     environment:
-      - DB_HOST=db
-      - DB_USER=root
-      - DB_PASSWORD=coildash_root_password
-      - DB_NAME=coil_o_matic
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=coildash_root_password
+      - MYSQL_DATABASE=coil_o_matic
       - DB_PORT=3306
       - SENSOR_API_SECRET=secret123
     depends_on:
