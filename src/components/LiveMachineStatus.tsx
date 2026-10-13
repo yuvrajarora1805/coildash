@@ -7,6 +7,7 @@ type Machine = {
   status: string;
   live_count: number;
   sensor_status: string;
+  seconds_since_last_seen: number;
 };
 
 export default function LiveMachineStatus() {
@@ -48,7 +49,14 @@ export default function LiveMachineStatus() {
               </div>
             )}
             <div className="flex justify-between items-center mb-2">
-              <span className="font-bold text-secondary-900">{m.machine_no}</span>
+              <span className="font-bold text-secondary-900 flex items-center gap-2">
+                {m.machine_no}
+                {m.seconds_since_last_seen !== null && m.seconds_since_last_seen < 10 ? (
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" title="Live"></span>
+                ) : (
+                  <span className="w-2.5 h-2.5 rounded-full bg-secondary-300" title="Offline"></span>
+                )}
+              </span>
               <span className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider ${
                 m.status === 'running' ? 'bg-emerald-100 text-emerald-800' :
                 m.status === 'breakdown' ? 'bg-rose-100 text-rose-800' : 'bg-secondary-100 text-secondary-800'

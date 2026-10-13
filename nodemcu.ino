@@ -4,12 +4,14 @@
 #include <ArduinoJson.h>
 
 // --- WiFi Settings ---
-const char* ssid = "YOUR_WIFI_SSID";
-const char* password = "YOUR_WIFI_PASSWORD";
+const char* ssid = "No_network";
+const char* password = "87654321";
 
 // --- API Settings ---
 // Change to your computer's IP address and the Next.js port
-const String apiEndpoint = "http://192.168.1.100:3000/api/sensor/update";
+// Uncomment the one you are currently using
+// const String apiEndpoint = "http://10.7.5.109:3000/api/sensor/update";
+const String apiEndpoint = "http://10.106.42.85:3000/api/sensor/update";
 const String apiSecret = "secret123"; // Must match SENSOR_API_SECRET in Next.js .env
 const String machineId = "S-01"; // Which machine this NodeMCU is attached to
 
@@ -25,6 +27,8 @@ State currentState = IDLE;
 unsigned long lastStateChangeTime = 0;
 const unsigned long timeoutMs = 5000; // 5 seconds timeout to wait for IR2
 const unsigned long debounceDelay = 200; // 200ms debounce
+unsigned long lastPingTime = 0;
+const unsigned long pingInterval = 3000; // 3 seconds heartbeat ping
 
 void setup() {
   Serial.begin(115200);
@@ -46,6 +50,13 @@ void loop() {
   bool ir2Triggered = (digitalRead(irSensor2) == LOW);
 
   unsigned long currentTime = millis();
+
+  // --- Heartbeat Ping ---
+  if (currentTime - lastPingTime > pingInterval) {
+    Serial.println("Sending heartbeat ping...");
+    sendApiUpdate(0, "ping", "");
+    lastPingTime = currentTime;
+  }
 
   switch (currentState) {
     case IDLE:

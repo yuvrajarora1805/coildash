@@ -19,13 +19,24 @@ export async function POST(request: Request) {
 
     const connection = await pool.getConnection();
     try {
+      if (status === 'ping') {
+        const [result]: any = await connection.query(
+          'UPDATE machines SET last_seen = CURRENT_TIMESTAMP WHERE machine_no = ?',
+          [machine_no]
+        );
+        if (result.affectedRows === 0) {
+          return NextResponse.json({ error: 'Machine not found' }, { status: 404 });
+        }
+        return NextResponse.json({ success: true, ping: true });
+      }
+
       let finalStatus = 'ok';
       if (status === 'error') {
         finalStatus = error_msg || 'unknown_error';
       }
       
       const [result]: any = await connection.query(
-        'UPDATE machines SET live_count = live_count + ?, sensor_status = ? WHERE machine_no = ?',
+        'UPDATE machines SET live_count = live_count + ?, sensor_status = ?, last_seen = CURRENT_TIMESTAMP WHERE machine_no = ?',
         [count, finalStatus, machine_no]
       );
 

@@ -52,7 +52,12 @@ CREATE TABLE IF NOT EXISTS process_cards (
     part_id INT,
     shift ENUM('A', 'B', 'C'),
     date DATE,
-    status ENUM('draft', 'pending_supervisor', 'approved', 'closed') DEFAULT 'draft',
+    status ENUM('draft', 'pending_supervisor', 'setup_approved', 'pending_section_head', 'approved', 'closed') DEFAULT 'draft',
+    press_reading VARCHAR(50),
+    temp_reading VARCHAR(50),
+    volt_reading VARCHAR(50),
+    quality_verified_by VARCHAR(100),
+    quality_verified_at TIMESTAMP NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (machine_id) REFERENCES machines(id),
@@ -82,9 +87,110 @@ CREATE TABLE IF NOT EXISTS material_traceability (
     wire_grade VARCHAR(100),
     wire_dia DECIMAL(5,2),
     heat_no VARCHAR(100),
-    uty_rm_no VARCHAR(100),
+    uts_rm_no VARCHAR(100),
     coil_weight DECIMAL(10,2),
     gal_weight DECIMAL(10,2),
+    FOREIGN KEY (process_card_id) REFERENCES process_cards(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS setup_approvals (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    process_card_id INT NOT NULL,
+    approver_id INT NOT NULL,
+    action ENUM('approved', 'rejected') NOT NULL,
+    remarks TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (process_card_id) REFERENCES process_cards(id) ON DELETE CASCADE,
+    FOREIGN KEY (approver_id) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS process_card_inspections (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    process_card_id INT NOT NULL,
+    stage ENUM('first_off', 'last_off') NOT NULL,
+    sample_no INT NOT NULL,
+    fl VARCHAR(50),
+    od_id VARCHAR(50),
+    nc VARCHAR(50),
+    ends VARCHAR(50),
+    helix VARCHAR(50),
+    visual VARCHAR(50),
+    sample_time TIME,
+    sign VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (process_card_id) REFERENCES process_cards(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS process_card_observations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    process_card_id INT NOT NULL,
+    row_no INT NOT NULL,
+    start_lo VARCHAR(50), start_od VARCHAR(50), start_nc VARCHAR(50), start_ends VARCHAR(50),
+    mid_lo VARCHAR(50), mid_od VARCHAR(50), mid_nc VARCHAR(50), mid_ends VARCHAR(50),
+    end_lo VARCHAR(50), end_od VARCHAR(50), end_nc VARCHAR(50), end_ends VARCHAR(50),
+    qty INT DEFAULT 0,
+    operator_sign VARCHAR(100),
+    supervisor_sign VARCHAR(100),
+    section_head_sign VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (process_card_id) REFERENCES process_cards(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS process_card_rejections (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    process_card_id INT NOT NULL,
+    cchl_coil_no VARCHAR(100),
+    part_no VARCHAR(100),
+    job_setting INT DEFAULT 0,
+    id_od INT DEFAULT 0,
+    nc INT DEFAULT 0,
+    wire_bend INT DEFAULT 0,
+    power_cut INT DEFAULT 0,
+    total_rej INT DEFAULT 0,
+    wire_cut_fit INT DEFAULT 0,
+    remarks TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (process_card_id) REFERENCES process_cards(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS process_card_abnormalities (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    process_card_id INT NOT NULL,
+    stage ENUM('first_off', 'last_off') NOT NULL,
+    defect_type VARCHAR(100),
+    downtime_mins INT DEFAULT 0,
+    scrap_qty INT DEFAULT 0,
+    suspect_qty INT DEFAULT 0,
+    tooling_adjustments TEXT,
+    quarantine_tag VARCHAR(100),
+    description TEXT,
+    severity ENUM('minor', 'moderate', 'critical') DEFAULT 'minor',
+    reported_by VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (process_card_id) REFERENCES process_cards(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS process_card_retro_verifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    process_card_id INT NOT NULL,
+    event_no INT DEFAULT 1,
+    press_reading VARCHAR(50),
+    temp_reading VARCHAR(50),
+    volt_reading VARCHAR(50),
+    sample_no INT NOT NULL,
+    fl VARCHAR(50),
+    od_id VARCHAR(50),
+    nc VARCHAR(50),
+    ends VARCHAR(50),
+    helix VARCHAR(50),
+    visual VARCHAR(50),
+    sample_time TIME,
+    sign VARCHAR(50),
+    supervisor_name VARCHAR(100),
+    supervisor_status ENUM('pending', 'verified_ok', 'requires_rework') DEFAULT 'pending',
+    supervisor_time TIME,
+    supervisor_remarks TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (process_card_id) REFERENCES process_cards(id) ON DELETE CASCADE
 );
 

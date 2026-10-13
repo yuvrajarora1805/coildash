@@ -8,7 +8,7 @@ export async function GET() {
     const connection = await pool.getConnection();
     try {
       const [rows]: any = await connection.query(
-        'SELECT machine_no, status, live_count, sensor_status FROM machines'
+        'SELECT machine_no, status, live_count, sensor_status, TIMESTAMPDIFF(SECOND, last_seen, CURRENT_TIMESTAMP) as seconds_since_last_seen FROM machines'
       );
 
       return NextResponse.json({ machines: rows });
