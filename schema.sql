@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS machines (
     machine_no VARCHAR(50) NOT NULL UNIQUE,
     status ENUM('running', 'idle', 'breakdown') DEFAULT 'idle',
     live_count INT DEFAULT 0,
-    sensor_status VARCHAR(255) DEFAULT 'ok'
+    sensor_status VARCHAR(255) DEFAULT 'ok',
+    last_seen TIMESTAMP NULL
 );
 
 CREATE TABLE IF NOT EXISTS customers (
